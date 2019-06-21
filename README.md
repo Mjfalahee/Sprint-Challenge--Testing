@@ -25,8 +25,20 @@ In this challenge use `Test Driven Development` to build a RESTful API using Nod
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 1. In Jest, what are the differences between `describe()` and `it()` globals, and what are good uses for them?
+
+`describe()` and `it()` are similar because they are globally injected by jest, but they differ in their use. `describe()` is used to break up tests into separate parts, whether it be separate functions, components, or queries. Describe is used to compartmentalize a suite of tests specific to a particular unit of code. `it()` on the other hand is for implementing a specific test case. The explanation within an `it()` should suit only one aspect of that unit, like testing for a specific status code response from a query, or making sure a number is incrementing properly. 
+
 1. What is the point of `Test Driven Development`? What do you think about this approach?
+
+Test Driven Development is used to be certain we get the results we want from the start. The idea is if you develop tests that fail at first, and then code a unit to pass the test, you'll be able to quickly and efficiently knock out the scope of your project whilst minimizing bugs and refactoring. It's an interesting approach to developing, but I'm not the biggest fan of it. It's useful for projects where you are certain of what you need from the start, but if you are figuring out your schema as you design and implement new ideas, it would lead to more refactoring than simply coding and creating tests to test what you've written.
+
 1. Mention three types of automated tests.
+
+Unit Testing -- focus on a specific function/component/query and verify that the results are what you expect with a specific set of test cases
+Integration Testing -- Making sure that multiple units of code are working together properly like React components rendering their children properly
+Static Testing -- perhaps the most mundane, and the method we learned first. Checking for simple typos or type issues as the code is written. This is actually largely done by whatever IDE you use as you write code these days.
+
+
 
 ## Project Set Up
 
