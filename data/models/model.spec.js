@@ -26,15 +26,16 @@ describe('route model', () => {
                 genre: 'Taco Game',
                 releaseYear: '2019'
             }
-            let inserted = await model.insert(taco);
+            const inserted = await model.insert(taco);
             expect(inserted.title).toBe(taco.title);
         })
     })
 
-    describe('findAll()', () => {
-        let obj = {};
-        it('should return an object')
-        const data = await model.findAll();
-        expect(data).toBe(obj);
+    describe('findAll()',  () => {
+        it('should return an array', async () => {
+            let array = [];
+            const data = await model.findAll();
+            expect(data).toEqual(array);
+        })
     })
 })

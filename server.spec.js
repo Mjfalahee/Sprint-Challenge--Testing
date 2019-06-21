@@ -1,6 +1,11 @@
 const supertest = require('supertest');
 const server = require('./server');
 
+const seeddata = [
+    {id: 1, title: 'Pac Man', genre: 'Arcade', releaseYear: '1980'},
+    {id: 2, title: 'Doom', genre: 'FPS', releaseYear: '1993'},
+    {id: 3, title: 'Diablo', genre: 'ARPG', releaseYear: '1996'}
+  ]
 //minimum 3 tests per endpoint
 
 //the POST /games should take in an object 
@@ -18,21 +23,20 @@ const server = require('./server');
 
 describe('server', () => {
     describe('get /games', () => {
-        it('returns with status code 200, OK', async () => {
-            await supertest(server)
+        it('returns with status code 200, OK', () => {
+            return supertest(server)
                 .get('/games')
                 .expect(200);
         });
-        it('returns a JSON', async () => {
-            await supertest(server)
+        it('returns a JSON', () => {
+            return supertest(server)
                 .get('/games')
                 .expect('Content-Type', /json/i);
         })
-        it('returns an array', async () => {
-            const expectedBody = [];
-            await supertest(server)
+        it('returns an array', () => {
+            return supertest(server)
                 .get('/games')
-                .expect(res.body).toEqual(expectedBody);
+                .expect([]);
         })
     })
 
@@ -41,7 +45,7 @@ describe('server', () => {
             await supertest(server)
                 .post('/games')
                 .send({
-                    title: 'Pacman',
+                    title: 'Spaghetti',
                     genre: 'Arcade',
                     releaseYear: '1980'
                 })
@@ -52,7 +56,7 @@ describe('server', () => {
             await supertest(server)
                 .post('/games')
                 .send({
-                    title: 'Pacman',
+                    title: 'Nonsense',
                     genre: 'Arcade',
                     releaseYear: '1980'
                 })
@@ -62,7 +66,7 @@ describe('server', () => {
             await supertest(server)
                 .post('/games')
                 .send({
-                    title: 'Pacman',
+                    title: 'Nonsense',
                     releaseYear: '1980'
                 })
                 .expect(422)
