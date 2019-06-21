@@ -16,6 +16,20 @@ function validateGame(req, res, next) {
     }
 }
 
+function uniqueGame(req, res, next) {
+    db.findByTitle(req.body.title)
+        .then(game => {
+            console.log(game);
+            if (game.length === 0) {
+                next();
+            } else {
+                res.status(405).json({message: 'Title must be unique'})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({message: 'Error within uniqueGame Middleware'});
+        })
+}
 //queries
 
 server.get('/', (req, res) => {
@@ -34,7 +48,7 @@ server.get('/games', (req, res) => {
         });
 });
 
-server.post('/games', validateGame, (req, res) => {
+server.post('/games', validateGame, uniqueGame, (req, res) => {
     db.insert(req.body)
         .then(game => {
             res.status(201).json(game);

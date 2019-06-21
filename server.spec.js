@@ -55,5 +55,15 @@ describe('server', () => {
                 })
                 .expect(422)
         })
+        it('returns status code 405 when a duplicate title is added', async () => {
+            await supertest(server)
+                .post('/games')
+                .send({
+                    title: 'Nonsense',
+                    genre: 'Arcade',
+                    releaseYear: '1980'
+                })
+                .expect(405)
+        })
     })
 })
