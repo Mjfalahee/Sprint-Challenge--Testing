@@ -1,5 +1,6 @@
 const supertest = require('supertest');
 const server = require('./server');
+require('jest-extended');
 
 const seeddata = [
     {id: 1, title: 'Pac Man', genre: 'Arcade', releaseYear: '1980'},
@@ -28,15 +29,18 @@ describe('server', () => {
                 .get('/games')
                 .expect(200);
         });
-        it('returns a JSON', () => {
+        it('returns with Content-type json object', () => {
             return supertest(server)
                 .get('/games')
                 .expect('Content-Type', /json/i);
         })
-        it('returns an array', () => {
+        it('returns an array, even empty', () => {
             return supertest(server)
                 .get('/games')
-                .expect([]);
+                .then(res => {
+                    expect(res.body)
+                    .toBeArray();
+                })
         })
     })
 
@@ -66,7 +70,7 @@ describe('server', () => {
             await supertest(server)
                 .post('/games')
                 .send({
-                    title: 'Nonsense',
+                    title: 'Whatever',
                     releaseYear: '1980'
                 })
                 .expect(422)
